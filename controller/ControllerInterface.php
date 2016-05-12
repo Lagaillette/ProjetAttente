@@ -11,9 +11,7 @@ switch ($action) {
     * @return nous redirige vers la page de connexion
     */
     case "PagePrincipale" :
-        session_destroy();
-        unset($_SESSION);
-        $erreurIn = false;
+        
         $view = "PagePrincipale";
         $pagetitle = "Page Principale";
         $data=ModelVille::selectAllVilles();

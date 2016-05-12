@@ -26,7 +26,7 @@
 
 <div  class="indices" > TicTacDoc, Comment ça marche? <a href="ViewEnSavoirPlus.php">En Savoir Plus</a> </div>
 <?php  
-       
+    
        ?>
 
 

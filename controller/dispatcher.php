@@ -19,7 +19,7 @@ function myGet($var)
     }
 }
 
-     session_start();
+    // session_start();
 
 
 

@@ -14,7 +14,7 @@ switch ($action) {
         $mail= $_POST['mail'];
         $mdp = 'jig'.sha1($_POST['mdp']);
         $ville=$_POST['ville'];
-        echo $mdp;
+        $specialite=$_POST['specialite'];
         $err=false;
         if(isset($_FILES['img']['tmp_name']))
         { 
@@ -61,7 +61,9 @@ switch ($action) {
 
             'ville' => $ville,
             
-            'chemin' => $chemin
+            'chemin' => $chemin,
+                
+            'specialite' => $specialite
         );
         
         
@@ -100,7 +102,7 @@ switch ($action) {
 
     {
         
-        setcookie('login',$login,time()+3600*24,null,null,false,true);
+        setcookie('login',$login,time()+3600*24*7,null,null,false,true);
         $view='PagePrincipale';
         $pagetitle='Page Principale';
         $data=ModelVille::selectAllVilles();
@@ -125,9 +127,9 @@ switch ($action) {
     
     
     case 'deconnexion':
+        setcookie('login','',time()+1,null,null,false,true);
         $pagetitle="Page Principale";
         $view='PagePrincipale';
-        setcookie('login',null,time()+1,null,null,false,true);
         $data=ModelVille::selectAllVilles();
         break;
     
@@ -138,8 +140,29 @@ switch ($action) {
     case 'delete' :
         $pagetitle="supprimer Médecin";
         $view='delete';
+        $path=ModelUser::selectChemin($login);
+        if($path['photo']!='img/default.jpg'){
+            unlink($path['photo']);
+        }
         ModelUser::delete($login);
+        $infos=ModelUser::selectInfos($login);
+        $idv=  ModelVille::selectIdVille($infos['ville']);
+        $ids=  ModelVille::selectIdSpe($infos['specialite']);
+        $idu=  ModelUser::selectIdUser($infos['login']);
+        
+        if(ModelVille::isNotInEffectuer($infos['specialite'])){
+            
+            ModelVille::deleteSpe($infos['specialite']);
+           
+        }
+        
+        if(ModelVille::isNotInVille($infos['ville'])){
+            
+            ModelVille::deleteVille($infos['ville']);
+           
+        }
         $data=ModelUser::selectAllUsers();
+        
         break;
     
     
@@ -187,6 +210,6 @@ switch ($action) {
              ModelUser::modifImg($chemin,$login);
         }
             
-}
+}       
 require VIEW_PATH . "view.php";
 

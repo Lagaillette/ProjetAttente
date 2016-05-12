@@ -4,7 +4,7 @@ class ModelUser extends Model {
 
     public static function Inscrire($tab){
         
-    $req = self::$pdo->prepare('INSERT INTO medecin(photo,nom,prenom,login,mdp,tel,mail,ville,admin) VALUES( :chemin, :nom, :prenom,:login, :mdp, :tel, :mail, :ville , 0)');
+    $req = self::$pdo->prepare('INSERT INTO medecin(photo,nom,prenom,login,mdp,tel,mail,admin) VALUES( :chemin, :nom, :prenom,:login, :mdp, :tel, :mail, 0)');
 
     $req->execute($tab);
     
@@ -13,7 +13,7 @@ class ModelUser extends Model {
     
    public static function selectUsers($ville2){
         
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin WHERE ville = :ville AND admin=0 ORDER BY nom ");
+        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id AND nomV = :ville AND admin=0 ORDER BY nom ");
 
         $req->execute($ville2);
     
@@ -78,7 +78,7 @@ class ModelUser extends Model {
     
     public static function selectUsersByName($data){
         
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,login FROM medecin WHERE nom LIKE ':nom%' OR prenom = :nom OR login = :nom AND admin=0 ORDER BY nom");
+        $req=self::$pdo->prepare("SELECT photo,nom, prenom,login FROM medecin WHERE nom = ':nom' OR prenom = :nom OR login = :nom AND admin=0 ORDER BY nom");
 
         $req->execute($data);
     
@@ -87,7 +87,7 @@ class ModelUser extends Model {
     
     public static function selectUsersByNameAndCity($data){
         
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin WHERE nom = :nom OR prenom = :nom and ville=:ville and admin=0 ORDER BY nom");
+        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id and nom = :nom OR prenom = :nom and nomV=:ville and admin=0 ORDER BY nom");
 
         $req->execute($data);
     
@@ -155,7 +155,7 @@ class ModelUser extends Model {
     
     public static function InscrireValidation($tab){
         
-    $req = self::$pdo->prepare('INSERT INTO validation(photo,nom,prenom,login,mdp,tel,mail,ville) VALUES( :chemin, :nom, :prenom,:login, :mdp, :tel, :mail, :ville)');
+    $req = self::$pdo->prepare('INSERT INTO validation(photo,nom,prenom,login,mdp,tel,mail,ville,specialite) VALUES( :chemin, :nom, :prenom,:login, :mdp, :tel, :mail, :ville,:specialite)');
 
     $req->execute($tab);
     
@@ -196,6 +196,42 @@ class ModelUser extends Model {
 
         return $req->fetch();
     }
+    
+    public static function selectCheminValidation($login){
+        
+        $req=self::$pdo->prepare('SELECT photo FROM validation WHERE login = :login');
+
+        $req->bindValue(':login',$login, PDO::PARAM_STR);
+        
+        $req->execute();
+
+        return $req->fetch();
+    }
+    
+     public static function selectChemin($login){
+        
+        $req=self::$pdo->prepare('SELECT photo FROM medecin WHERE login = :login');
+
+        $req->bindValue(':login',$login, PDO::PARAM_STR);
+        
+        $req->execute();
+
+        return $req->fetch();
+    }
+    
+    /*public static function selectDoctorFromVille($ville){
+        $data=array(
+            
+           
+        )
+        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin WHERE nom = :nom OR prenom = :nom and ville=:ville and admin=0 ORDER BY nom");
+
+        $req->execute($data);
+    
+        return $req->fetchAll(PDO::FETCH_OBJ);
+        
+    }
+    }*/
 }
    
 
