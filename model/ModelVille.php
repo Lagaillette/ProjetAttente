@@ -112,7 +112,7 @@ class ModelVille extends Model {
          $req->execute();
     }
     
-    public static function isNotInEffectuer($id){
+    public static function isInEffectuer($id){
         $data=array(
             ':id' => $id
         );
@@ -123,13 +123,13 @@ class ModelVille extends Model {
         $data2=$req->fetch();
         
         if(empty($data2)){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
         }
     }  
     
-    public static function isNotInTravailler($id){
+    public static function isInTravailler($id){
         $data=array(
             ':id' => $id
         );
@@ -140,10 +140,22 @@ class ModelVille extends Model {
         $data2=$req->fetch();
         
         if(empty($data2)){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
         }
+    }
+    
+    public static function recupSpe($login){
+        $data=array(
+            'login'=>$login
+        );
+        
+        $req=self::$pdo->prepare("Select nomS from medecin m, effectuer e, specialite s WHERE m.id=e.id_user AND e.id_spe=s.id AND login=:login");
+        
+        $req->execute($data);
+    
+        return $req->fetchAll();
     }
 }
 

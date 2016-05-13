@@ -1,6 +1,7 @@
 <?php
 require MODEL_PATH . 'Model.php';
 require MODEL_PATH . 'ModelUser.php';
+require "model/ModelVille.php";
 
 $pagetitle = $ville;
 $view = 'ville';
@@ -20,6 +21,8 @@ switch ($action) {
             'ville' => $ville
         );
         $data2=ModelUser::selectUsersByNameAndCity($infos);
+        
+        
         break;
 }
 

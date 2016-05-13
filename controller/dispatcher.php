@@ -48,6 +48,9 @@ if (!is_null(myGet('ville')))
 if (!is_null(myGet('nom')))
     $nom = myGet('nom');
 
+if (!is_null(myGet('specialite')))
+    $specialite = myGet('specialite');
+
 
 
 switch ($controller) {
@@ -71,6 +74,9 @@ switch ($controller) {
     case 'preuser':
         require_once 'ControllerPreUser.php';
         break;
+    
+        
+    
     default:
 }
 ?>

@@ -12,7 +12,9 @@ and open the template in the editor.
   
     
 }
-
+p{
+    text-justify: auto;
+}
 .entete{
     font-family: "fantasy";
     font-size: 35px;

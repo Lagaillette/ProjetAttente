@@ -30,6 +30,7 @@
                         <th>Prénom</th>
                         <th>Téléphone</th>
                         <th>mail</th>
+                        <th>spécialité(s)</th>
                         <th>temps d'attente</th>
                         
                         
@@ -46,6 +47,7 @@
                         $mail = $row->mail;
                         $retard = $row->retard;
                         $photo = $row->photo;
+                        $login = $row->login;
                         
                       
                 ?>        
@@ -56,11 +58,14 @@
                         <tr> 
                             
                             <td style="width: 50px"><img src="<?php echo $photo ?>" style="width: 130px; height: 130px"/></td>
-                            <td style='text-align : center'><?php echo $nom; ?></td>
-                            <td style='text-align : center'><?php echo $prenom; ?></td>
-                            <td style='text-align : center'><?php echo $tel; ?></td>
-                            <td style='text-align : center'><?php echo $mail; ?></td>
-                            <td style='text-align : center; font-weight: bold; ' ><?php echo $retard; ?> <br> minutes</td>
+                            <td style='text-align : center'><br><br><?php echo $nom; ?></td>
+                            <td style='text-align : center'><br><br><?php echo $prenom; ?></td>
+                            <td style='text-align : center'><br><br><?php echo $tel; ?></td>
+                            <td style='text-align : center'><br><br><?php echo $mail; ?></td>
+                            <td style='text-align : center'><br><br>
+                                <?php foreach(ModelVille::recupSpe($login) as $row){echo $row['nomS']."<br>";}; ?>
+                            </td>  
+                            <td style='text-align : center; font-weight: bold; color:#8B0000; font-size:20px' ><br><?php echo $retard; ?> <br> minutes</td>
                             
                          
                                

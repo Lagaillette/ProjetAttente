@@ -13,7 +13,7 @@ class ModelUser extends Model {
     
    public static function selectUsers($ville2){
         
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id AND nomV = :ville AND admin=0 ORDER BY nom ");
+        $req=self::$pdo->prepare("SELECT login,photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id AND nomV = :ville AND admin=0 ORDER BY nom ");
 
         $req->execute($ville2);
     
@@ -87,7 +87,7 @@ class ModelUser extends Model {
     
     public static function selectUsersByNameAndCity($data){
         
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id and nom = :nom OR prenom = :nom and nomV=:ville and admin=0 ORDER BY nom");
+        $req=self::$pdo->prepare("SELECT login,photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id and nom = :nom OR prenom = :nom and nomV=:ville and admin=0 ORDER BY nom");
 
         $req->execute($data);
     
@@ -177,6 +177,17 @@ class ModelUser extends Model {
         
         return $req->fetch();
     }
+    
+    public static function selectInfosSpeVille($login){
+        $req=self::$pdo->prepare("SELECT nomS as specialite , nomV as ville FROM medecin m, effectuer e, travailler t, ville v, specialite s WHERE s.id=e.id_spe AND e.id_user=m.id AND m.id=t.id_user AND t.id_ville=v.id AND login=:login");
+        
+        $req->bindvalue(':login',$login,PDO::PARAM_STR);
+        
+        $req->execute();
+        
+        return $req->fetch();
+    }
+    
     
     public static function deleteValidation($login){
          $req=self::$pdo->prepare('DELETE FROM validation WHERE login=:login');

@@ -58,9 +58,6 @@ switch ($action){
         $idv=  ModelVille::selectIdVille($infos['ville']);
         $ids=  ModelVille::selectIdSpe($infos['specialite']);
         $idu=  ModelUser::selectIdUser($infos['login']);
-        echo $idv['id'].'  ';
-        echo $ids['id'].'  ';
-        echo $idu['id'].'  ';
         $tab1=array(
             'iduser' => $idu['id'],
             'idville' => $idv['id'],

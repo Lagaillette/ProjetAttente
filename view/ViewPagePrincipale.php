@@ -18,16 +18,17 @@
              <input type='hidden' value="Ville" name='controller' />
              <input type='hidden' value="<?php echo $row['nomV'];?>" name='ville' />
              <input type='hidden' value="villes" name='action'>
-             <input class=" list-group-item policeGen col-lg-6 btn-lg btn-default" style="color : darkslategrey; margin-top : 0px; margin-bottom: 0px;  " type='submit' value="<?php echo $row['nomV'];?>"/>
+             <input class=" list-group-item policeGen col-lg-6 col-xs-8 btn-lg btn-default" style="color : darkslategrey; margin-top : 0px; margin-bottom: 0px;  " type='submit' value="<?php echo $row['nomV'];?>"/>
           </form>   
     </div>
+<br>
     <?php } ?>
 
 
-<div  class="indices" > TicTacDoc, Comment ça marche? <a href="ViewEnSavoirPlus.php">En Savoir Plus</a> </div>
-<?php  
-    
-       ?>
+<div  class="indices" > TicTacDoc, Comment ça marche? <a href="index.php?action=ensavoirplus">En Savoir Plus</a> </div>
+<?php 
+
+   ?>
 
 
 </body>

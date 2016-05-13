@@ -103,9 +103,10 @@ switch ($action) {
     {
         
         setcookie('login',$login,time()+3600*24*7,null,null,false,true);
-        $view='PagePrincipale';
+        header('Location: index.php');
+        /*$view='PagePrincipale';
         $pagetitle='Page Principale';
-        $data=ModelVille::selectAllVilles();
+        $data=ModelVille::selectAllVilles();*/
     }
 
     else // Acces pas OK !
@@ -128,9 +129,10 @@ switch ($action) {
     
     case 'deconnexion':
         setcookie('login','',time()+1,null,null,false,true);
-        $pagetitle="Page Principale";
+         header('Location: index.php'); 
+        /*$pagetitle="Page Principale";
         $view='PagePrincipale';
-        $data=ModelVille::selectAllVilles();
+        $data=ModelVille::selectAllVilles();*/
         break;
     
     
@@ -138,31 +140,21 @@ switch ($action) {
     
     
     case 'delete' :
+        try{
         $pagetitle="supprimer Médecin";
         $view='delete';
         $path=ModelUser::selectChemin($login);
         if($path['photo']!='img/default.jpg'){
             unlink($path['photo']);
         }
+        
+        
         ModelUser::delete($login);
-        $infos=ModelUser::selectInfos($login);
-        $idv=  ModelVille::selectIdVille($infos['ville']);
-        $ids=  ModelVille::selectIdSpe($infos['specialite']);
-        $idu=  ModelUser::selectIdUser($infos['login']);
-        
-        if(ModelVille::isNotInEffectuer($infos['specialite'])){
-            
-            ModelVille::deleteSpe($infos['specialite']);
-           
-        }
-        
-        if(ModelVille::isNotInVille($infos['ville'])){
-            
-            ModelVille::deleteVille($infos['ville']);
-           
-        }
         $data=ModelUser::selectAllUsers();
-        
+         } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
         break;
     
     
@@ -209,7 +201,59 @@ switch ($action) {
              }
              ModelUser::modifImg($chemin,$login);
         }
-            
+        
+    
+    case 'ajoutVille'  :
+        if(ModelVille::isNotInVille($ville)){    
+            ModelVille::insertVille($ville);
+        }
+        
+        $idv=  ModelVille::selectIdVille($ville);
+        $idu=  ModelUser::selectIdUser($_COOKIE['login']);
+        
+        $tab=array(
+            'iduser' => $idu['id'],
+            'idville' => $idv['id'],
+        );
+        ModelVille::insertIntoTravailler($tab);
+        
+        if (!empty($_COOKIE['login'])){
+        $view='Completer';
+        $pagetitle='Complétez votre profil';
+        }
+        else{
+            $view='error';
+            $pagetitle='erreur';
+            $erreur='vous ne pouvez pas accéder à cette page';
+        }
+        
+        break;
+    
+    case 'ajoutSpe' :
+        if(ModelVille::isNotInSpe($specialite)){
+            ModelVille::insertSpe($specialite);           
+        }
+        
+        $ids=  ModelVille::selectIdSpe($specialite);
+        $idu=  ModelUser::selectIdUser($_COOKIE['login']);
+        
+        $tab=array(
+            'iduser' => $idu['id'],
+            'idspe' => $ids['id']
+        );
+        
+        ModelVille::insertIntoEffectuer($tab);
+        
+        if (!empty($_COOKIE['login'])){
+        $view='Completer';
+        $pagetitle='Complétez votre profil';
+        }
+        else{
+            $view='error';
+            $pagetitle='erreur';
+            $erreur='vous ne pouvez pas accéder à cette page';
+        }
+        break;
 }       
 require VIEW_PATH . "view.php";
 

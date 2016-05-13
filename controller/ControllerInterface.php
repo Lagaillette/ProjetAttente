@@ -80,7 +80,22 @@ switch ($action) {
         }
         break;
     
+    case "completer":
+        if (!empty($_COOKIE['login'])){
+        $view='Completer';
+        $pagetitle='Complétez votre profil';
+        break;
+        }else{
+            $view='error';
+            $pagetitle='erreur';
+            $erreur='vous ne pouvez pas accéder à cette page';
+        }
+        break;
     
+    case "ensavoirplus":
+        $view='EnSavoirPlus';
+        $pagetitle='En Savoir Plus';
+        break;
 }
 
 require VIEW_PATH . "view.php";

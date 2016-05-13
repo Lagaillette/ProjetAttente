@@ -24,6 +24,7 @@ require_once MODEL_PATH . 'ModelUser.php';
     </div>
     <ul class="nav navbar-nav">
       <li><a href="index.php">Accueil</a></li>
+      <li><a href="index.php?action=ensavoirplus">Aide</a></li>
       
        <?php if (!empty($_COOKIE['login'])){ 
                 if(ModelUser::isAdmin($_COOKIE['login'])){?>
@@ -39,6 +40,11 @@ require_once MODEL_PATH . 'ModelUser.php';
           
           <a href="index.php?action=RecupRetard&controller=time">
                Gerer
+          </a>
+      </li>
+      <li>
+          <a href="index.php?action=completer">
+               Compléter
           </a>
           
       </li>
