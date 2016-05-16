@@ -42,8 +42,12 @@
                     <div class="col-md-8 col-lg-8 col-lg-offset-2"><input name="specialite" placeholder="specialité" class="form-control" type="text" id="Userville" required/></div>
                 </div>  
                 
+                <div class="form-group indices" style="font-size:20px">
+                    <div class="col-md-8 col-lg-8 col-lg-offset-2 ">insérez votre photo ici:</div>
+                </div> 
+                
                 <div class="form-group">
-                    <div class="col-md-8 col-lg-8 col-lg-offset-2"><input type="file" name="img"></div>
+                    <div class="col-md-8 col-lg-8 col-lg-offset-2"><input type="file" name="img" ></div>
                 </div> 
                 
                 

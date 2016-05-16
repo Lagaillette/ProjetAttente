@@ -2,7 +2,7 @@
 require_once MODEL_PATH . 'Model.php';
 require_once MODEL_PATH . 'ModelUser.php';
 require MODEL_PATH.'ModelVille.php';
-//require MODEL_PATH.'ModelPreUser.php';
+//ControllerInterface contient les actions concernant le déplacement sur le site.
 switch ($action) {
     
     /*
@@ -23,7 +23,8 @@ switch ($action) {
         break;
     
     case "outilDocteur" :
-        if (!empty($_COOKIE['login'])){
+        //On vérifie si un cookie a été mis en place et si les deux cookies mis en place correspondent
+        if (!empty($_COOKIE['login']) && ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt'])){
         $view = "Gerer";
         $pagetitle = "Gérer temps d'attente";
         }else{
@@ -35,11 +36,12 @@ switch ($action) {
     
     case "inscription" :
         $view = "Inscription";
-        $pagetitle = "Gérer temps d'attente";
+        $pagetitle = "Inscritpion";
         break;
     
     case"delete" :
-        if (!empty($_COOKIE['login']) && ModelUser::isAdmin($_COOKIE['login'])){
+        //On vérifie si un cookie a été mis en place et si les deux cookies mis en place correspondent et si le cookie login correspond au login de l'admin
+        if (!empty($_COOKIE['login']) && ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt']) && ModelUser::isAdmin($_COOKIE['login'])){
         $view='Delete';
         $pagetitle='supprimer';
         $data=ModelUser::selectAllUsers();
@@ -58,7 +60,8 @@ switch ($action) {
         break;
     
     case "modifier" :
-        if (!empty($_COOKIE['login'])){
+        //On vérifie si un cookie a été mis en place et si les deux cookies mis en place correspondent
+        if (!empty($_COOKIE['login']) && ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt'])){
         $view='ModifProfil';
         $pagetitle='Modifications';
         break;
@@ -69,7 +72,7 @@ switch ($action) {
         }
         
     case "appercu":
-        if (!empty($_COOKIE['login']) && ModelUser::isAdmin($_COOKIE['login'])){
+        if (!empty($_COOKIE['login']) && ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt']) && ModelUser::isAdmin($_COOKIE['login'])){
             $view='Accepter';
             $pagetitle='gerez les inscriptions';
             $data=ModelUser::selectAllUsersWainting();
@@ -81,7 +84,8 @@ switch ($action) {
         break;
     
     case "completer":
-        if (!empty($_COOKIE['login'])){
+        //On vérifie si un cookie a été mis en place et si les deux cookies mis en place correspondent
+        if (!empty($_COOKIE['login']) && ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt'])){
         $view='Completer';
         $pagetitle='Complétez votre profil';
         break;

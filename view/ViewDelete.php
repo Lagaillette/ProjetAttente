@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <?php
-                //$data= ModelUser::selectAllUsers();
+                //on va afficher les informations de chaque personnes à supprimer
                   
                     foreach ($data as $row){
                         $nom = $row->nom;

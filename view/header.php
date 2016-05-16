@@ -27,7 +27,7 @@ require_once MODEL_PATH . 'ModelUser.php';
       <li><a href="index.php?action=ensavoirplus">Aide</a></li>
       
        <?php if (!empty($_COOKIE['login'])){ 
-                if(ModelUser::isAdmin($_COOKIE['login'])){?>
+                if(ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt']) && ModelUser::isAdmin($_COOKIE['login'])){?>
                     <li><a href="index.php?controller=interface&action=delete">Supprimer</a></li>
                     <li><a href="index.php?controller=preuser&action=appercu">Accepter</a></li>
                 <?php
@@ -35,7 +35,7 @@ require_once MODEL_PATH . 'ModelUser.php';
        }             
       ?>
                     
-      <?php if (!empty($_COOKIE['login']) && !ModelUser::isAdmin($_COOKIE['login']) ){?>
+      <?php if (!empty($_COOKIE['login']) && ModelUser::Correspondre($_COOKIE['login'],$_COOKIE['clecrypt']) && !ModelUser::isAdmin($_COOKIE['login']) ){?>
       <li>
           
           <a href="index.php?action=RecupRetard&controller=time">

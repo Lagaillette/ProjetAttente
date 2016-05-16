@@ -6,7 +6,7 @@
         
         <p class="col-xs-10 col-xs-offset-1">-Ce site permet de connaître le temps d'attente chez votre médecin, ci celui-ci est inscrit sur ce site</p>
     
-        <p class="col-xs-10 col-xs-offset-1">-Pour consulter le temps de retard de votre médecin, cliquez sur la ville concernée ci celle-ci est presente sur le site</p>
+        <p class="col-xs-10 col-xs-offset-1">-Pour consulter le temps de retard de votre médecin, cliquez sur la ville concernée si celle-ci est presente sur le site</p>
    
         <p class="col-xs-10 col-xs-offset-1">-lorsque vous êtes sur la page contenant les médecins de la ville concernée, vous pourrez observer dans la deuxième colonne : </p>
     
@@ -14,7 +14,7 @@
         
         <p class="col-xs-10 col-xs-offset-1">-Soit le nombre de minutes d'attente estimé ou de retard chez le médecin</p>
         
-        <p class="col-xs-10 col-xs-offset-1">-Les inscriptions ne sont pas automatiques, elles sont vérifiés. Seul les Médecins certifiés peuvent avoir accès à l'application. Merci de ne pas poster de candidature inutile.</p>
+        <p class="col-xs-10 col-xs-offset-1">-Les inscriptions ne sont pas automatiques, elles sont vérifiées. Seul les Médecins certifiés peuvent avoir accès à l'application. Merci de ne pas poster de candidatures inutiles.</p>
     
         <p class="col-xs-10 col-xs-offset-1">Voilà, en espérant que nous vous serrons utile lors de vos prochaines visites.</p>
     

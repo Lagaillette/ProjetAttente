@@ -27,7 +27,7 @@
                         <th>photo</th>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>pseudo</th>
+                        <th>telephone</th>
                         <th>accepter</th>
                         <th>rejeter</th>
                     </tr>
@@ -40,7 +40,7 @@
                         $prenom = $row->prenom;
                         $login = $row->login;
                         $photo = $row->photo;
-                      
+                        $tel = $row ->tel;
                 ?>        
                       
                    
@@ -50,7 +50,7 @@
                             <td style="width: 50px"><img src=<?php echo $photo ?> /></td>
                             <td style='text-align : center'><?php echo $nom; ?></td>
                             <td style='text-align : center'><?php echo $prenom; ?></td>
-                            <td style='text-align : center'><?php echo $login; ?></td>
+                            <td style='text-align : center'><?php echo $tel; ?></td>
                             <td style='text-align : center'>
                                 <form method='post' action='index.php'>
                                     <input type="hidden" value="accept" name='action' >

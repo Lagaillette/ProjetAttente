@@ -8,7 +8,7 @@
 
 <div class="entete2n " style="margin-bottom: 20px;"> Choisissez la ville de votre médecin </div>
     <?php
-    
+    //on va afficher chaque villes de la base de données
      foreach($data as $row){
      ?>
      
@@ -26,9 +26,7 @@
 
 
 <div  class="indices" > TicTacDoc, Comment ça marche? <a href="index.php?action=ensavoirplus">En Savoir Plus</a> </div>
-<?php 
 
-   ?>
 
 
 </body>

@@ -1,8 +1,11 @@
-<?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<html>
+    <body>
+        <div class="entete centrage">Contact</div>
+        <div class="indices" style="color : gray;">
+            <p class="col-xs-10 col-xs-offset-1 centrage" style="margin-bottom: 40px">Adresse mail de l'administrateur du site : adresse.mail@gmail.com</p>
+        </div>
+        
+        </body>
+</html>
 

@@ -5,9 +5,9 @@ require_once MODEL_PATH . 'ModelUser.php';
 require_once MODEL_PATH . 'ModelVille.php';
 
 
-
+//Ce contrôleur concerne les actions pour ceux qui attendent d'être acceptés dans le site
 switch ($action){
-    
+    //cas où l'on va afficher les personnes qui doivent ou non être acceptés
     case 'appercu':
         if (!empty($_COOKIE['login']) && ModelUser::isAdmin($_COOKIE['login'])){
             $view='Accepter';
@@ -20,12 +20,13 @@ switch ($action){
         }
         break;
         
-        
+        // cas où l'administateur accepte une inscription
     case 'accept':
         try{
         $pagetitle="gérer les attentes";
         $view='accepter';
         $infos=ModelUser::selectInfos($login);
+        $clecrypt = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
         $tab=array(
             'login' => $infos['login'],
 
@@ -40,6 +41,8 @@ switch ($action){
             'tel' => $infos['tel'],
             
             'chemin' => $infos['photo'],
+            
+            'clecrypt' => $clecrypt
         );
         
         ModelUser::Inscrire($tab);
@@ -80,6 +83,7 @@ switch ($action){
         }
         break;
     
+        //cas où l'administrateur rejète une inscription
     case 'delete' :
         $pagetitle="gérer les attentes";
         $view='accepter';

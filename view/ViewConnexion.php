@@ -1,4 +1,4 @@
-
+<html>
 
 <div class="container">
 <div class="row">
@@ -26,6 +26,9 @@
                 <div class="form-group">
                 <div class="col-md-offset-1 col-md-8 col-lg-2"><input class="btn btn-success btn btn-success" type="submit" value="Valider" /></div>
                 </div>
+                <div class="form-group">
+                <div class="col-md-offset-1 col-md-8" style='font-size:12px'>*ce site nécessite l'utilisation des cookies</div>
+                </div>
             
             </form>
             </div>
@@ -35,3 +38,5 @@
 </div>
 </div>
 </div>
+    
+</html>

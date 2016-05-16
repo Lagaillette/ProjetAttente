@@ -10,11 +10,12 @@ $ville2=array(
 );
 
 switch ($action) {
-    
+    //cas où l'on sélectionne les médecins concernant cette ville
     case 'villes' :
         $data2=ModelUser::selectUsers($ville2);
         break;
     
+    //cas où l'on recherche le médecin suivant sa ville et le nom recherché
     case 'recherche' :
         $infos=array(
             'nom' => $nom,

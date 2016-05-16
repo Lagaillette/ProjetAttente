@@ -1,10 +1,11 @@
 <?php 
-    
+
+//Toutes ces fonctions exécutent ce que leur nom désigne en général, et concerne des informations sur les utilisateurs, médecins et admins
 class ModelUser extends Model {
 
     public static function Inscrire($tab){
         
-    $req = self::$pdo->prepare('INSERT INTO medecin(photo,nom,prenom,login,mdp,tel,mail,admin) VALUES( :chemin, :nom, :prenom,:login, :mdp, :tel, :mail, 0)');
+    $req = self::$pdo->prepare('INSERT INTO medecin(photo,nom,prenom,login,mdp,tel,mail,admin,clecrypt) VALUES( :chemin, :nom, :prenom,:login, :mdp, :tel, :mail, 0,:clecrypt)');
 
     $req->execute($tab);
     
@@ -78,7 +79,7 @@ class ModelUser extends Model {
     
     public static function selectUsersByName($data){
         
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,login FROM medecin WHERE nom = ':nom' OR prenom = :nom OR login = :nom AND admin=0 ORDER BY nom");
+        $req=self::$pdo->prepare("SELECT DISTINCT photo,nom, prenom,login FROM medecin WHERE nom = ':nom' OR prenom = :nom OR login = :nom AND admin=0 ORDER BY nom");
 
         $req->execute($data);
     
@@ -87,7 +88,7 @@ class ModelUser extends Model {
     
     public static function selectUsersByNameAndCity($data){
         
-        $req=self::$pdo->prepare("SELECT login,photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id and nom = :nom OR prenom = :nom and nomV=:ville and admin=0 ORDER BY nom");
+        $req=self::$pdo->prepare("SELECT DISTINCT login,photo,nom, prenom,tel,mail,retard FROM medecin m, travailler t, ville v WHERE m.id=t.id_user and t.id_ville=v.id and nom = :nom OR prenom = :nom and nomV=:ville and admin=0 ORDER BY nom");
 
         $req->execute($data);
     
@@ -100,7 +101,7 @@ class ModelUser extends Model {
             ':login' => $login
         );
         
-        $req=self::$pdo->prepare('SELECT login FROM medecin WHERE login=:login');
+        $req=self::$pdo->prepare('SELECT m.login,v.login FROM medecin m, validation v WHERE m.login=:login OR v.login=:login');
          
          
          $req->execute($data);
@@ -162,7 +163,7 @@ class ModelUser extends Model {
     }
     
     public static function selectAllUsersWaiting(){
-        $req=self::$pdo->query("SELECT photo,nom, prenom, login FROM validation ORDER BY nom");
+        $req=self::$pdo->query("SELECT tel,photo,nom, prenom, login FROM validation ORDER BY nom");
   
         return $req->fetchAll(PDO::FETCH_OBJ);
         
@@ -230,19 +231,35 @@ class ModelUser extends Model {
         return $req->fetch();
     }
     
-    /*public static function selectDoctorFromVille($ville){
-        $data=array(
-            
-           
-        )
-        $req=self::$pdo->prepare("SELECT photo,nom, prenom,tel,mail,retard FROM medecin WHERE nom = :nom OR prenom = :nom and ville=:ville and admin=0 ORDER BY nom");
-
-        $req->execute($data);
-    
-        return $req->fetchAll(PDO::FETCH_OBJ);
+    public static function updateClecrypt($login,$clecrypt){
+        $req=self::$pdo->prepare("UPDATE medecin SET clecrypt=:clecrypt WHERE login = :login");
         
+        $req->bindValue(':login',$login, PDO::PARAM_STR);
+        $req->bindValue(':clecrypt',$clecrypt, PDO::PARAM_STR);
+        
+        $req->execute();
     }
-    }*/
+    
+    public static function Correspondre($login,$clecrypt){
+        $data=array(
+            'login' => $login,
+            'clecrypt' => $clecrypt
+        );
+        $req=self::$pdo->prepare('SELECT * FROM medecin WHERE login=:login AND clecrypt=:clecrypt');
+        
+        
+        
+        $req->execute($data);
+        
+        $data2=$req->fetch();
+        
+        if(!empty($data2))
+            return true;
+        else
+            return false;
+    }
 }
+    
+
    
 

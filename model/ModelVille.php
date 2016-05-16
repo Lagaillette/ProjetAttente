@@ -1,5 +1,5 @@
 <?php
-
+//le ModelVille contient les fonctions concernant Les villes mais aussi les spécialités. 
 class ModelVille extends Model {
     
     public static function selectAllVilles(){
@@ -157,11 +157,31 @@ class ModelVille extends Model {
     
         return $req->fetchAll();
     }
+    
+    public static function deleteInEffectuer($data1,$data2){
+        
+        $req=self::$pdo->prepare('DELETE FROM effectuer WHERE id_spe=:idspe AND id_user=:iduser');
+         
+        $req->bindValue(':idspe',$data1, PDO::PARAM_INT);
+        $req->bindValue(':iduser',$data2, PDO::PARAM_INT);
+        
+        $req->execute();
+      
+        
+    }
+    
+    public static function deleteInTravailler($data1,$data2){
+        
+        $req=self::$pdo->prepare('DELETE FROM travailler WHERE id_ville= :idville AND id_user=:iduser');
+         
+        $req->bindValue(':idville',$data1, PDO::PARAM_INT);
+        $req->bindValue(':iduser',$data2, PDO::PARAM_INT);
+        
+        $req->execute();
+      
+        
+    }
 }
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 

@@ -1,13 +1,5 @@
 <?php
-/*! \brief Classe général pour les models
- *         
- * Cette classe permet de définir des fonctions communes à toutes les classes qui héritent de celle-ci
- *  
- */
-
-
-// On va chercher le fichier de configuration dans "./config/Conf.php"
-//require_once ROOT . DS . 'config' . DS . 'Conf.php';
+//Classe dont vont hériter les autres models permettant la connexion à la base de données
 
 class Model {
 
@@ -28,6 +20,6 @@ class Model {
 
 }
 
-// On initiliase la connexion $pdo un fois pour toute
+// On initiliase la connexion $pdo
 Model::set_static();
 
